@@ -1,6 +1,5 @@
-function oImg = imgaussfilt(aImg, aSigma, aSize)
-%imgaussfilt Gaussian filtering with specific sigma and kernel size
-%   Detailed explanation goes here
+function oImg = gaussian_filter(aImg, aSigma, aSize)
+% imgaussfilt Gaussian filtering with specific sigma and kernel size
 
 if mod(aSize, 2) == 0
     aSize = aSize+1;
