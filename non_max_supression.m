@@ -1,6 +1,5 @@
-function [ oImg ] = non_max_supression( aMagnitude, aTheta )
+function oImg = non_max_supression(aMagnitude, aTheta)
 %nonMaxSupression Perform non-maximum suppression
-%   Detailed explanation goes here
 
 outOfMatrix = Inf;
 

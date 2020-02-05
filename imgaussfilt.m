@@ -1,4 +1,4 @@
-function [ oImg ] = imgaussfilt( aImg, aSigma, aSize )
+function oImg = imgaussfilt(aImg, aSigma, aSize)
 %imgaussfilt Gaussian filtering with specific sigma and kernel size
 %   Detailed explanation goes here
 

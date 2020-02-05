@@ -1,32 +1,35 @@
 function outputImage = canny(inputImage, sigma, low, high)
+% Implementation of Canny edge detector in matlab
 
-% close all; clear all; clc;
-
+% Read a grayscale image from the file
 % In = imread('images/lena.png');
 input = imread(inputImage);
 
 % Step 1: Smooth the input image with a Gaussian filter
-% sigma = 1.4;
-Iblur = imgaussfilt(input, sigma, 5);
+% recommend sigma value: 1.4
+blurImage = imgaussfilt(input, sigma, 5);
 
 % Step 2: Compute the gradient magnitude and angle images
-[Out, theta] = gradient(Iblur);
-theta = arrayfun(@(x)x*180/pi, theta);
-direc = arrayfun(@(x)normalize_directions(x), theta);
+[magnitude, direction] = gradient(blurImage);
+direction = arrayfun(@(x)x*180/pi, direction);
+direc = arrayfun(@(x)normalize_directions(x), direction);
 
 % Step 3: Apply nonmaxima suppression to the gradient magnitude image
-supressed = non_max_supression(Out, direc);
-
-imshow(supressed);
+supressedImage = non_max_supression(magnitude, direc);
 
 % Step 4: Use double thresholding and connectivity analysis to detect
 % and link edges
-% low = 0.03;
-% high = 0.08;
-thresholded = arrayfun(@(x)double_threshold(x,low,high), supressed);
+% recommend low value: 0.03
+% recommend high value: 0.08
+thresholdedImage = arrayfun(@(x)double_threshold(x,low,high), supressedImage);
 % blobs = grassfire(thresholded);
 % result = weak_edges_filter(blobs, thresholded);
 
-outputImage = mat2gray(thresholded);
+% Convert matrix to intensity image
+outputImage = mat2gray(thresholdedImage);
 
-imwrite(outputImage, 'canny.png');
+% Display image
+imshow(supressedImage);
+
+%  Write image to graphics file
+imwrite(outputImage, 'result.png');

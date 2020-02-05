@@ -1,5 +1,5 @@
-function direction = normalize_directions( angle )
-%normalize_directions Transform angle into direction index
+function direction = normalize_directions(angle)
+% normalize_directions Transform angle into direction index
 %   0 - east
 %   1 - north-east
 %   2 - north

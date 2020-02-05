@@ -1,6 +1,5 @@
-function oPixel = double_threshold( aPixel, aLow, aHigh )
-%double_threshold Perform double thresholding on single pixel
-%   Detailed explanation goes here
+function oPixel = double_threshold(aPixel, aLow, aHigh)
+% double_threshold Perform double thresholding on single pixel
 
 if aPixel < aLow
     oPixel = 0;

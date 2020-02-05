@@ -1,15 +1,14 @@
-function [ grad, theta ] = gradient( aImg )
-%GRADIENT Computes a gradient of given image.
-%   Detailed explanation goes here
+function [grad_magnitude, grad_direction] = gradient(image)
+% Calculate the gradient magnitude and gradient direction of a given image.
 
-sobel_y = [1 2 1; 0 0 0; -1 -2 -1];
-sobel_x = [-1 0 1; -2 0 2; -1 0 1];
+kernel_x = [-1 0 1; -2 0 2; -1 0 1];
+kernel_y = [1 2 1; 0 0 0; -1 -2 -1];
 
-grad_x = conv2(aImg, sobel_x, 'same');
-grad_y = conv2(aImg, sobel_y, 'same');
+grad_magnitude_x = conv2(image, kernel_x, 'same');
+grad_magnitude_y = conv2(image, kernel_y, 'same');
 
-grad = abs(grad_x) + abs(grad_y);
-theta = atan2(grad_y, grad_x);
+grad_magnitude = abs(grad_magnitude_x) + abs(grad_magnitude_y);
+grad_direction = atan2(grad_magnitude_y, grad_magnitude_x);
 
 end
 
