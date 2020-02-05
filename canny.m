@@ -7,15 +7,15 @@ input = imread(inputImage);
 
 % Step 1: Smooth the input image with a Gaussian filter
 % recommend sigma value: 1.4
-blurImage = imgaussfilt(input, sigma, 5);
+blurImage = gaussian_filter(input, sigma, 5);
 
 % Step 2: Compute the gradient magnitude and angle images
-[magnitude, direction] = gradient(blurImage);
+[magnitude, direction] = sobel_gradient(blurImage);
 direction = arrayfun(@(x)x*180/pi, direction);
 direc = arrayfun(@(x)normalize_directions(x), direction);
 
 % Step 3: Apply nonmaxima suppression to the gradient magnitude image
-supressedImage = non_max_supression(magnitude, direc);
+supressedImage = nonmaxima_supression(magnitude, direc);
 
 % Step 4: Use double thresholding and connectivity analysis to detect
 % and link edges
