@@ -6,30 +6,28 @@ function outputImage = canny(inputImage, sigma, low, high)
 input = imread(inputImage);
 
 % Step 1: Smooth the input image with a Gaussian filter
-% recommend sigma value: 1.4
+% recommend sigma value: 6
 blurImage = gaussian_filter(input, sigma, 5);
 
 % Step 2: Compute the gradient magnitude and angle images
 [magnitude, direction] = sobel_gradient(blurImage);
 direction = arrayfun(@(x)x*180/pi, direction);
-direc = arrayfun(@(x)normalize_directions(x), direction);
+direct = arrayfun(@(x)normalize_directions(x), direction);
 
 % Step 3: Apply nonmaxima suppression to the gradient magnitude image
-supressedImage = nonmaxima_supression(magnitude, direc);
+supressedImage = nonmaxima_supression(magnitude, direct);
 
 % Step 4: Use double thresholding and connectivity analysis to detect
 % and link edges
-% recommend low value: 0.03
-% recommend high value: 0.08
+% recommend low value: 0.18
+% recommend high value: 0.26
 thresholdedImage = arrayfun(@(x)double_threshold(x,low,high), supressedImage);
-% blobs = grassfire(thresholded);
-% result = weak_edges_filter(blobs, thresholded);
 
 % Convert matrix to intensity image
 outputImage = mat2gray(thresholdedImage);
 
 % Display image
-imshow(supressedImage);
+imshow(outputImage);
 
 %  Write image to graphics file
 imwrite(outputImage, 'result.png');
